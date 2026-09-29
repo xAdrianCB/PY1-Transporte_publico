@@ -20,7 +20,15 @@ def mostrar():
     return
 
 def verificar_descripcion(descripcion, modelos):
-    return
+    if not isinstance(descripcion, str):
+        return "Error: descripcion debe ser una entrada string"
+    i = 0
+    while modelos < len(modelos)-1:
+        if modelos[i][1] == descripcion:
+            return True
+        i+= 1
+    return False
+        
 
 #E: N/A
 #S: agrega datos .txt al archivo modelos.txt
