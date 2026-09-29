@@ -1,7 +1,17 @@
 #Creacion del archivo proyecto
 
-def leerArchivo(archivo):
-    return
+def leerArchivo(nombre_archivo):
+    if not isinstance(nombre_archivo, str):
+        return "Error: la entrada debe ser tipo string"
+    lista = []
+    with open(nombre_archivo,"r") as archivo:
+        lineas = archivo.readline()
+        while lineas != "":
+            linea = lineas.strip().split(";")
+            lista += [linea]
+            lineas = archivo.readline()
+    return lista
+        
 
 def menu():
     return
