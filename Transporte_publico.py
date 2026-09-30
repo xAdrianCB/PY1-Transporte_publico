@@ -107,8 +107,8 @@ def eliminar_modelos():
 #R: indice debe ser entero, si los input estan vacios no se modifican
 def modificar_modelos():
     modelos = leerArchivo("modelos.txt")
-    print(modelos)
-    #mostrar()
+    #print(modelos)
+    mostrar("modelos.txt")
     indice = int(input("selecione el indice de la fila que desea modificar: "))
     
     des = input("descripcion: ")
@@ -133,6 +133,29 @@ def modificar_modelos():
             i+= 1
     print("Se modifico con exito")
     #menu()
+
+#E:n/a
+#S: n/a, guarda una lista de elementos en un archivo de texto
+#R: placa no debe existir en el archivo de texto
+def incluir_unidades():
+    placa = input("Ingrese la placa: ") #debo usar try aqui?
+    """
+    if existe_elemento(placa, "unidades.txt"):
+        return "Error: la placa introducidad ya existe en los registros"
+        """
+    mostrar("modelos.txt")
+    modelo = input("Ingrese el indice del mdoelo deseado: ")
+    #nModelo = obtener_modelo(modelo)
+    anio = input("Ingrese el a;o: ")
+    empresa = input("Ingrese el nombre de la empresa asignada: ")
+
+    #debo validar que las entradas no sean vaicas
+    nuevo_unidad = [placa + ";" + nmodelo + ";" + anio + ";" + empresa]
+    guardarArchivo("unidades.txt",nuevo_unidad)
+    
+    
+    
+        
 
             
         
