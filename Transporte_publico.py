@@ -50,7 +50,7 @@ def incluir_modelos():
     
     if not verifica_descripcion(des, modelos):
         return "Error: descripcion de modelo ya registrado"
-    nuevo_modelo= [[des], [marca], [asiento], [depie]]
+    nuevo_modelo= [des + ";" marca + ";" + asiento + ";" + depie]
     guardarArchivo("modelos.txt",nuevo_modelo)
     
     
