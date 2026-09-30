@@ -25,8 +25,19 @@ def guardarArchivo(nombre_archivo, datos):
 def menu():
     return
 
-def mostrar():
-    return
+#E: nombre_archivo
+#S: muestra mediante prints las lineas de determiando archivo con indice
+#R: entrada debe ser tipo string
+def mostrar(nombre_archivo):
+    if not isinstance(nombre_archivo, str):
+        return "Error: entrada debe ser tipo string"
+    with open(nombre_archivo, "r") as archivo:
+        linea = archivo.readline()
+        i = 1
+        while linea != "":
+            print(i, *linea.strip().split(";"))
+            i+= 1
+            linea = archivo.readline()
 
 def verificar_descripcion(descripcion, modelos):
     if not isinstance(descripcion, str):
@@ -122,6 +133,7 @@ def modificar_modelos():
             i+= 1
     print("Se modifico con exito")
     #menu()
+
             
         
         
