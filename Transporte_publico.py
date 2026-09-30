@@ -52,8 +52,30 @@ def incluir_modelos():
         return "Error: descripcion de modelo ya registrado"
     nuevo_modelo= [des + ";" marca + ";" + asiento + ";" + depie]
     guardarArchivo("modelos.txt",nuevo_modelo)
+
+#E: n/a
+#S: n/a, elimina una linea especifica en base al primer elemento que coinside con el string dado(descripcion).
+#R: debe existir la descipcion del modelo en el archivo.
+def eliminar_modelos():
+    modelos = leerArchivo("modelos.txt")
+    #aqui deberia ir mostrar
+    des = input("descripcion del modelo a eliminar: ")
+
+    if verificar_descripcion(des, modelos):
+        with open("modelos.txt", "w") as archivo:
+            i = 0
+            while i< len(modelos):
+                if des != modelos[i][0]:
+                    archivo.write(modelos[i][0] + ";" + modelos[i][1] + ";" + modelos[i][2] + ";" + modelos[i][3] + "\n")
+                i+= 1
+        print("Modelo eliminado")
+    #return menuModelo()
     
-    
+                
+
+
+                
+        
     
     
     
