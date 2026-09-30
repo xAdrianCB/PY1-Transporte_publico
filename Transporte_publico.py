@@ -11,6 +11,7 @@ def leerArchivo(nombre_archivo):
             lista += [linea]
             lineas = archivo.readline()
     return lista
+
 def guardarArchivo(nombre_archivo, datos):
     if not isinstance(nombre_archivo, str):
         return "Error: entrada debe ser tipo string"
@@ -48,9 +49,9 @@ def incluir_modelos():
     asientos = input("cantidad de asiento: ")
     depie = input("cantidad de espacios de pie: ")
     
-    if not verifica_descripcion(des, modelos):
+    if not verificar_descripcion(des, modelos):
         return "Error: descripcion de modelo ya registrado"
-    nuevo_modelo= [des + ";" marca + ";" + asiento + ";" + depie]
+    nuevo_modelo = [des + ";" + marca + ";" + asiento + ";" + depie]
     guardarArchivo("modelos.txt",nuevo_modelo)
 
 #E: descripcion
@@ -89,7 +90,42 @@ def eliminar_modelos():
             print("Error: el modelo no debe estar vinculado en unidads")
             #menuModelo
     # menuModelo
+
+#E: n/a
+#S: n/a, modifica
+#R: indice debe ser entero, si los input estan vacios no se modifican
+def modificar_modelos():
+    modelos = leerArchivo("modelos.txt")
+    print(modelos)
+    #mostrar()
+    indice = int(input("selecione el indice de la fila que desea modificar: "))
     
+    des = input("descripcion: ")
+    marca = input("marca: ")
+    asientos = input("cantidad de asiento: ")
+    depie = input("cantidad de espacios de pie: ")
+
+    if des != "":
+        modelos[indice-1][0] = des
+    if marca != "":
+        modelos[indice-1][1] = marca
+    if asientos != "":
+        modelos[indice-1][2] = asientos
+    if depie != "":
+        modelos[indice-1][3] = depie
+    
+    with open("modelos.txt", "w") as archivo:
+        i = 0
+        print(modelos)
+        while i < len(modelos):
+            archivo.write(modelos[i][0] + ";" + modelos[i][1] + ";" + modelos[i][2] + ";" +modelos[i][3] +"\n")
+            i+= 1
+    print("Se modifico con exito")
+    #menu()
+            
+        
+        
+                
                 
 
 
