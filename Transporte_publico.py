@@ -11,7 +11,15 @@ def leerArchivo(nombre_archivo):
             lista += [linea]
             lineas = archivo.readline()
     return lista
-        
+def guardarArchivo(nombre_archivo, datos):
+    if not isinstance(nombre_archivo, str):
+        return "Error: entrada debe ser tipo string"
+    if not isinstance(datos, list):
+        return "Error: entrada datos, debe ser tipo lista"
+    with open(nombre_archivo, "a") as archivo:
+        archivo.write(datos + "\n")
+        print("Datos guardados con exito")
+    #preguntar si debo mostrar los datos del archivo de nuevo
 
 def menu():
     return
