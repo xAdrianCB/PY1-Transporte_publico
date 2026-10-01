@@ -48,7 +48,7 @@ def verificar_descripcion(descripcion, modelos):
             return False
         i+= 1    
     return True
-        
+
 
 #E: N/A
 #S: agrega datos .txt al archivo modelos.txt
@@ -152,16 +152,36 @@ def obtener_modelos(indice):
         if i == indice-1 :
             return modelos[i][0]
         i += 1
+#E: placa, nombre_archivo
+#S: valor booleano que determina si el elemento se escuenta en la lista
+#R: ambas entradas deben ser string
+def verificar_placa(placa, nombre_archivo):
+    if not isinstance(placa, str):
+        return False
+    if not isinstance(nombre_archivo, str):
+        return False
+        
+    
+    unidades = leerArchivo(nombre_archivo)
+    i = 0
+    while i < len(unidades):
+        if unidades[i][0] == placa:
+            return True
+        i+= 1    
+    return False
     
 #E:n/a
 #S: n/a, guarda una lista de elementos en un archivo de texto
 #R: placa no debe existir en el archivo de texto
 def incluir_unidades():
-    placa = input("Ingrese la placa: ") #debo usar try aqui?
-    """
-    if existe_elemento(placa, "unidades.txt"):
-        return "Error: la placa introducidad ya existe en los registros"
-        """
+    while True:
+        placa = input("Ingrese la placa: ") #debo usar try aqui?
+        
+        if verificar_placa(placa, "unidades.txt"):
+            print("Error: la placa introducidad ya existe en los registros")
+        else:
+            break
+    
     mostrar("modelos.txt")
     modelo = int(input("Ingrese el indice del mdoelo deseado: "))
     nModelo = obtener_modelos(modelo)
