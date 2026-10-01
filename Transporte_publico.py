@@ -187,7 +187,6 @@ def incluir_unidades():
 
     #debo validar que las entradas no sean vaicas
     nuevo_unidad = [placa + ";" + nModelo + ";" + anio + ";" + empresa]
-    print(nuevo_unidad[0])
     guardarArchivo("unidades.txt",nuevo_unidad[0])
 #E: placa
 #S: retorna valor booleano si el elemento existe o no
@@ -230,7 +229,42 @@ def eliminar_unidades():
     else:
         print("Error: la unidad no debe estar vinculado en salidas programadas")
 
+#E: n/a
+#S: modifica la linea indicada del archivo de texto
+#R: indice tiene que ser en un rango del 1 al len(unidades) 
+def modificar_unidades():
+    unidades = leerArchivo("unidades.txt")
+    mostrar("unidades.txt")
+    while True:
+        indice = int(input("selecione el indice de la fila que desea modificar: "))
 
+        if indice < 1 or indice > len(unidades):
+            print("Error: indice no esta dentro del rango")
+        else:
+            break
+    placa = input("Ingrese la placa: ")
+    mostrar("modelos.txt")
+    modelo = int(input("Ingrese el indice del modelo deseado: "))
+    nModelo = obtener_modelos(modelo)
+    anio = input("Ingrese el año: ")
+    empresa = input("Ingrese el nombre de la empresa asignada: ")
+
+    if placa != "":
+        unidades[indice-1][0] = placa
+    if nModelo != "":
+        unidades[indice-1][1] = nModelo
+    if anio != "":
+        unidades[indice-1][2] = anio
+    if empresa != "":
+        unidades[indice-1][3] = empresa
+    
+    with open("unidades.txt", "w") as archivo:
+        i = 0
+        while i < len(unidades):
+            archivo.write(unidades[i][0] + ";" + unidades[i][1] + ";" + unidades[i][2] + ";" +unidades[i][3] +"\n")
+            i+= 1
+    print("Se modifico con exito")
+    
     
     
         
