@@ -63,24 +63,22 @@ def incluir_modelos():
     if not verificar_descripcion(des, modelos):
         return "Error: descripcion de modelo ya registrado"
     nuevo_modelo = [des + ";" + marca + ";" + asientos + ";" + depie]
-    print(nuevo_modelo[0])
     guardarArchivo("modelos.txt",nuevo_modelo[0])
 
 #E: descripcion
 #S: valor boleano segun si la entrada se encuentra en el earchivo d etexto (unidades)
 #R: entrada debe ser string
 def verificar_unidades(descripcion):
-    return True
     if not isinstance(descripcion, str):
         return "Error: entrada debe ser un string"
     with open("unidades.txt", "r") as archivo:
-        lineas = archivo.readline
+        lineas = archivo.readline()
         while lineas != "":
-            linea = archivo.strip().split(";")
-            print(linea)
-            if linea[1] == descripcion:
+            lineas = lineas.strip().split(";")
+            if lineas[1] == descripcion:
                 return False
-        return True
+            lineas = archivo.readline()
+    return True
     
 
 #E: n/a
@@ -104,6 +102,8 @@ def eliminar_modelos():
         else:
             print("Error: el modelo no debe estar vinculado en unidads")
             #menuModelo
+    else:
+        print("Error: el modelo no existe")
     # menuModelo
 
 #E: n/a
@@ -143,7 +143,7 @@ def modificar_modelos():
 def obtener_modelos(indice):
     modelos = leerArchivo("modelos.txt")
     if indice > len(modelos) or indice < 1:
-        return "Error: el indice no cumple con el ranfo(1,largo de lista)
+        return "Error: el indice no cumple con el ranfo(1,largo de lista"
     i = 0
     while i < len(modelos):
         if i == indice-1 :
@@ -180,16 +180,57 @@ def incluir_unidades():
             break
     
     mostrar("modelos.txt")
-    modelo = int(input("Ingrese el indice del mdoelo deseado: "))
+    modelo = int(input("Ingrese el indice del modelo deseado: "))
     nModelo = obtener_modelos(modelo)
-    anio = input("Ingrese el a;o: ")
+    anio = input("Ingrese el año: ")
     empresa = input("Ingrese el nombre de la empresa asignada: ")
 
     #debo validar que las entradas no sean vaicas
     nuevo_unidad = [placa + ";" + nModelo + ";" + anio + ";" + empresa]
     print(nuevo_unidad[0])
     guardarArchivo("unidades.txt",nuevo_unidad[0])
-    
+#E: placa
+#S: retorna valor booleano si el elemento existe o no
+#R: entrada debe ser string
+def verificar_salidas(placa):
+    if not isinstance(placa, str):
+        return "Error: entrada debe ser un string"
+    with open("salidas.txt", "r") as archivo:
+        lineas = archivo.readline()
+        while lineas != "":
+            lineas = lineas.strip().split(";")
+            if lineas[2] == descripcion:
+                return False
+            lineas = archivo.readline()
+    return True
+
+ 
+#E: n/a
+#S: n/a, eliminar una linea que consida con la placa
+#R: la unidad no debe estar asignada a una salida
+def eliminar_unidades():
+    unidades = leerArchivo("unidades.txt")
+    mostrar("unidades.txt")
+
+    while True:
+        placa = input("Ingrese la placa: ")
+        
+        if not verificar_placa(placa, "unidades.txt"):
+            print("Error: la placa introducidad no existe en los registros")
+        else:
+            break
+    if verificar_salidas(placa):
+        with open("unidades.txt", "w") as archivo:
+            i = 0
+            while i< len(unidades):
+                if placa != unidades[i][0]:
+                    archivo.write(unidades[i][0] + ";" + unidades[i][1] + ";" + unidades[i][2] + ";" + unidades[i][3] + "\n")
+                i+= 1
+            print("Unidad eliminado")
+    else:
+        print("Error: la unidad no debe estar vinculado en salidas programadas")
+
+
     
     
         
