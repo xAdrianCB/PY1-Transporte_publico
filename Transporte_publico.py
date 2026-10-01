@@ -142,11 +142,8 @@ def modificar_modelos():
 #R: el indice debe estar dentro del rango
 def obtener_modelos(indice):
     modelos = leerArchivo("modelos.txt")
-    print(len(modelos))
-    print(indice)
-    if indice > len(modelos):
-        print("Error: el indice indicado supera la lista")
-        incluir_unidades()
+    if indice > len(modelos) or indice < 1:
+        return "Error: el indice no cumple con el ranfo(1,largo de lista)
     i = 0
     while i < len(modelos):
         if i == indice-1 :
