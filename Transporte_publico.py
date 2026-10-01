@@ -137,11 +137,22 @@ def modificar_modelos():
     print("Se modifico con exito")
     #menu()
 
-#E:
-#S:
-#R:
-def obtener_modelos(modelo):
-    return
+#E: modelo
+#S: retorna el elemento selecionado en la lista de modelos
+#R: el indice debe estar dentro del rango
+def obtener_modelos(indice):
+    modelos = leerArchivo("modelos.txt")
+    print(len(modelos))
+    print(indice)
+    if indice > len(modelos):
+        print("Error: el indice indicado supera la lista")
+        incluir_unidades()
+    i = 0
+    while i < len(modelos):
+        if i == indice-1 :
+            return modelos[i][0]
+        i += 1
+    
 #E:n/a
 #S: n/a, guarda una lista de elementos en un archivo de texto
 #R: placa no debe existir en el archivo de texto
@@ -152,13 +163,13 @@ def incluir_unidades():
         return "Error: la placa introducidad ya existe en los registros"
         """
     mostrar("modelos.txt")
-    modelo = input("Ingrese el indice del mdoelo deseado: ")
-    #nModelo = obtener_modelo(modelo)
+    modelo = int(input("Ingrese el indice del mdoelo deseado: "))
+    nModelo = obtener_modelos(modelo)
     anio = input("Ingrese el a;o: ")
     empresa = input("Ingrese el nombre de la empresa asignada: ")
 
     #debo validar que las entradas no sean vaicas
-    nuevo_unidad = [placa + ";" + 'nmodelo' + ";" + anio + ";" + empresa]
+    nuevo_unidad = [placa + ";" + nModelo + ";" + anio + ";" + empresa]
     print(nuevo_unidad[0])
     guardarArchivo("unidades.txt",nuevo_unidad[0])
     
