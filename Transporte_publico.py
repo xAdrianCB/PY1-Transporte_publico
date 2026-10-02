@@ -381,23 +381,84 @@ def eliminar_conductor():
     else:
         print("Error: el conductor no debe estar vinculado en salidas programadas")
     
+#E: n/a
+#S: modifica una linea del archivo txt por medio de un indice
+#R: la cedula ingresada no puede existir en el archivo, valida largo de cedula, valida el tipo de licencia en variable lista "tipo"
+def modificar_conductor():
+    conductores = leerArchivo("conductores.txt")
+    mostrar("conductores.txt")
+    while True:
+        indice = int(input("selecione el indice de la fila que desea modificar: "))
 
-    
-        
-
+        if indice < 1 or indice > len(unidades):
+            print("Error: indice no esta dentro del rango")
+        else:
+            break
+    while True:
+        try:
+            cedula = int(input("Ingrese la cedula: "))
             
-        
-        
-                
-                
+            if len(str(cedula)) > 7 or len(str(cedula)) < 7:
+                print("Error: la cedula debe ser de 7 digitos")  
+            elif verificar_cedula(str(cedula), "conductores.txt"):
+                print("Error: la cedula introducidad ya existe en los registros")
+            else:
+                cedula = str(cedula)
+                break
+        except:
+            print("Error: debe introducir un numero entero")
 
+    nombre = input("Ingrese el nombre completo (Form: nombre y apellido): ")
+    tipos = ["B1","B2","B3","B4"]
+    
+    valido = True
+    while valido:
+        T_licencia = input("Ingrese el tipo de licencia (Form: B1,,,B4): ").upper()
+        for i in tipos:
+            if i == T_licencia:
+                valido = False
+                break
+        if valido:
+            print("Error: el tipo de licencia no es valido(B1,B2,B3,B4")
+    
+    print("Ingrese la fecha de vencimiento de la licencia (Form: dia/mes/año)")
+    while True:
+        try:
+            dia = int(input("Ingre solo el dia: "))
+            mes = int(input("Ingrese solo el mes: "))
+            anio = int(input("Ingrese solo el año: "))
+            if dia > 31 or dia < 1:
+                print("Error: el dia no esta dentro del rango(1 y 30)")
+            elif mes > 12 or mes < 1:
+                print("Error: el mes no esta dentro del rango(1 y 12)")
+            else:
+                vencimiento = str(dia) + "/" + str(mes) + "/" + str(anio)
+                break
+        except:
+            print("Error, alguna de las entradas no es un numero entero")
+    while True:
+        jornadaM = int(input("Ingrese la jornada maxima diaria(en horas): "))
+        if jornadaM < 0:
+            print("Error: el rango de jornada empieza apartir de 1")
+        else:
+            jornadaM = str(jornadaM)
+            break
 
-                
-        
+    if cedula != "":
+        if not verificar_cedula(cedula, "conductores.txt")
+        conductores[indice-1][0] = cedula
+    if nombre != "":
+        conductores[indice-1][1] = nombre
+    if T_licencia != "":
+        conductores[indice-1][2] = T_licencia
+    if vencimiento != "":
+        conductores[indice-1][3] = vencimiento
+    if jornadaM != "":
+        conductores[indice-1][4] = jornadaM
     
-    
-    
-    
-    
-    
-    
+    with open("conductores.txt", "w") as archivo:
+        i = 0
+        while i < len(unidades):
+            archivo.write(conductores[i][0] + ";" + conductores[i][1] + ";" + conductores[i][2] + ";" + conductores[i][3] +"\n")
+            i+= 1
+    print("Se modifico con exito")
