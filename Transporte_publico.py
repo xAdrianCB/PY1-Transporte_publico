@@ -375,7 +375,7 @@ def eliminar_conductor():
             i = 0
             while i< len(conductores):
                 if cedula != conductores[i][0]:
-                    archivo.write(conductores[i][0] + ";" + conductores[i][1] + ";" + conductores[i][2] + ";" + conductores[i][3] + "\n")
+                    archivo.write(conductores[i][0] + ";" + conductores[i][1] + ";" + conductores[i][2] + ";" + conductores[i][3] + ";" + conductores[i][4] + "\n")
                 i+= 1
             print("conductor eliminado")
     else:
@@ -390,7 +390,7 @@ def modificar_conductor():
     while True:
         indice = int(input("selecione el indice de la fila que desea modificar: "))
 
-        if indice < 1 or indice > len(unidades):
+        if indice < 1 or indice > len(conductores):
             print("Error: indice no esta dentro del rango")
         else:
             break
@@ -443,10 +443,9 @@ def modificar_conductor():
         else:
             jornadaM = str(jornadaM)
             break
-
-    if cedula != "":
-        if not verificar_cedula(cedula, "conductores.txt")
-        conductores[indice-1][0] = cedula
+    if not verificar_cedula(cedula, "conductores.txt"):
+        if cedula != "":
+            conductores[indice-1][0] = cedula
     if nombre != "":
         conductores[indice-1][1] = nombre
     if T_licencia != "":
@@ -458,7 +457,7 @@ def modificar_conductor():
     
     with open("conductores.txt", "w") as archivo:
         i = 0
-        while i < len(unidades):
-            archivo.write(conductores[i][0] + ";" + conductores[i][1] + ";" + conductores[i][2] + ";" + conductores[i][3] +"\n")
+        while i < len(conductores):
+            archivo.write(conductores[i][0] + ";" + conductores[i][1] + ";" + conductores[i][2] + ";" + conductores[i][3] + ";" + conductores[i][4]+"\n")
             i+= 1
     print("Se modifico con exito")
