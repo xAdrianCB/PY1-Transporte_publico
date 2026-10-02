@@ -265,6 +265,22 @@ def modificar_unidades():
             i+= 1
     print("Se modifico con exito")
 
+def verificar_cedula(cedula, nombre_archivo):
+    if not isinstance(cedula,str):
+        print("Error: entrada cedula debe ser tipo string")
+        return True
+    if not isinstance(nombre_archivo,str):
+        print("Error: entrada nombre_archivo debe ser tipo string")
+        return True
+    conductores = leerArchivo(nombre_archivo)
+    i = 0
+    while i < len(conductores):
+        if conductores[i][0] == placa:
+            print("Error: la cedula introducidad ya existe en los registros")
+            return True
+        i+= 1    
+    return False
+    
 #E: n/a
 #S: n/a, cumple la funcion de agregar un conductor nuevo con sus datos al archivo de texto conductores.
 #R: la cedula ingresada no puede existir en el archivo, valida largo de cedula, valida el tipo de licencia en variable lista "tipo"
@@ -276,7 +292,7 @@ def incluir_conductor():
             if len(str(cedula)) > 7 or len(str(cedula)) < 7:
                 print("Error: la cedula debe ser de 7 digitos")  
             elif verificar_cedula(str(cedula), "conductores.txt"):
-                print("Error: la cedula introducidad ya existe en los registros")
+                print("--")
             else:
                 cedula = str(cedula)
                 break
