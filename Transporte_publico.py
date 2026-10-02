@@ -275,7 +275,7 @@ def verificar_cedula(cedula, nombre_archivo):
     conductores = leerArchivo(nombre_archivo)
     i = 0
     while i < len(conductores):
-        if conductores[i][0] == placa:
+        if conductores[i][0] == cedula:
             print("Error: la cedula introducidad ya existe en los registros")
             return True
         i+= 1    
@@ -328,7 +328,7 @@ def incluir_conductor():
         except:
             print("Error, alguna de las entradas no es un numero entero")
     while True:
-        jornadaM = int(input("Ingrese la jornada maxima diaria(en años): "))
+        jornadaM = int(input("Ingrese la jornada maxima diaria(en horas): "))
         if jornadaM < 0:
             print("Error: el rango de jornada empieza apartir de 1")
         else:
