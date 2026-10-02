@@ -268,15 +268,12 @@ def modificar_unidades():
 def verificar_cedula(cedula, nombre_archivo):
     if not isinstance(cedula,str):
         print("Error: entrada cedula debe ser tipo string")
-        return True
     if not isinstance(nombre_archivo,str):
         print("Error: entrada nombre_archivo debe ser tipo string")
-        return True
     conductores = leerArchivo(nombre_archivo)
     i = 0
     while i < len(conductores):
         if conductores[i][0] == cedula:
-            print("Error: la cedula introducidad ya existe en los registros")
             return True
         i+= 1    
     return False
@@ -292,7 +289,7 @@ def incluir_conductor():
             if len(str(cedula)) > 7 or len(str(cedula)) < 7:
                 print("Error: la cedula debe ser de 7 digitos")  
             elif verificar_cedula(str(cedula), "conductores.txt"):
-                print("--")
+                print("Error: la cedula introducidad ya existe en los registros")
             else:
                 cedula = str(cedula)
                 break
@@ -336,6 +333,39 @@ def incluir_conductor():
             break
     conductor = [cedula + ";" + nombre + ";" + T_licencia + ";" + vencimiento + ";" + jornadaM]
     guardarArchivo("conductores.txt",conductor[0])
+
+#E: n/a
+#S: n/a, su funcion es eliminar una linea del archivo conductores mediantes la cedula
+#R: valida los digitos de cedula, valida que no este vinculada, cedula = int, valida que cedula existe
+def eliminar_conductor():
+    conductores = leerArchivo("conductores.txt")
+    mostrar("conductores.txt")
+
+    while True:
+        try:
+            cedula = int(input("Ingrese la cedula: "))
+            
+            if len(str(cedula)) > 7 or len(str(cedula)) < 7:
+                print("Error: la cedula debe ser de 7 digitos")  
+            elif not verificar_cedula(str(cedula), "conductores.txt"):
+                print("Error: la cedula no se encuentra en el archivo")
+            else:
+                cedula = str(cedula)
+                break
+        except:
+            print("Error: debe introducir un numero entero")
+            
+    if verificar_salidas_conductor(cedula):
+        with open("conductores.txt", "w") as archivo:
+            i = 0
+            while i< len(conductores):
+                if cedula != conductores[i][0]:
+                    archivo.write(conductores[i][0] + ";" + conductores[i][1] + ";" + conductores[i][2] + ";" + conductores[i][3] + "\n")
+                i+= 1
+            print("conductor eliminado")
+    else:
+        print("Error: el conductor no debe estar vinculado en salidas programadas")
+    
 
     
         
