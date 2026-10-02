@@ -334,6 +334,21 @@ def incluir_conductor():
     conductor = [cedula + ";" + nombre + ";" + T_licencia + ";" + vencimiento + ";" + jornadaM]
     guardarArchivo("conductores.txt",conductor[0])
 
+#E: cedula
+#S: valores boleanos dependiendo si encuentra similitudes
+#R: valida que cedula sea un string
+def verificar_salidas_conductor(cedula):
+    if not isinstance(cedula, str):
+        return "Error: entrada debe ser un string"
+    with open("salidas.txt", "r") as archivo:
+        lineas = archivo.readline()
+        while lineas != "":
+            lineas = lineas.strip().split(";")
+            if lineas[3] == cedula:
+                return False
+            lineas = archivo.readline()
+    return True
+
 #E: n/a
 #S: n/a, su funcion es eliminar una linea del archivo conductores mediantes la cedula
 #R: valida los digitos de cedula, valida que no este vinculada, cedula = int, valida que cedula existe
