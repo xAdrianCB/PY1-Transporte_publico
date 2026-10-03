@@ -55,6 +55,7 @@ def verificar_descripcion(descripcion, modelos):
 #R: valida que la descipcion no se repita
 def incluir_modelos():
     modelos = leerArchivo("modelos.txt")
+    mostrar("modelos.txt")
     des = input("descripcion: ")
     marca = input("marca: ")
     asientos = input("cantidad de asiento: ")
@@ -111,7 +112,6 @@ def eliminar_modelos():
 #R: indice debe ser entero, si los input estan vacios no se modifican
 def modificar_modelos():
     modelos = leerArchivo("modelos.txt")
-    #print(modelos)
     mostrar("modelos.txt")
     indice = int(input("selecione el indice de la fila que desea modificar: "))
     
@@ -171,6 +171,7 @@ def verificar_placa(placa, nombre_archivo):
 #S: n/a, guarda una lista de elementos en un archivo de texto
 #R: placa no debe existir en el archivo de texto
 def incluir_unidades():
+    mostrar("unidades.txt")
     while True:
         placa = input("Ingrese la placa: ") #debo usar try aqui?
         
@@ -282,6 +283,7 @@ def verificar_cedula(cedula, nombre_archivo):
 #S: n/a, cumple la funcion de agregar un conductor nuevo con sus datos al archivo de texto conductores.
 #R: la cedula ingresada no puede existir en el archivo, valida largo de cedula, valida el tipo de licencia en variable lista "tipo"
 def incluir_conductor():
+    mostrar("conductores.txt")
     while True:
         try:
             cedula = int(input("Ingrese la cedula: "))
@@ -461,3 +463,50 @@ def modificar_conductor():
             archivo.write(conductores[i][0] + ";" + conductores[i][1] + ";" + conductores[i][2] + ";" + conductores[i][3] + ";" + conductores[i][4]+"\n")
             i+= 1
     print("Se modifico con exito")
+
+def verificar_rutas(codigo, nombre_archivo):
+    return False
+
+#E: n/a
+#S: n/a, añade una nueva linea al archivo de texto rutas
+#R: valida si el codigo ya existe en el archivo, km = int, tarifa = int y > 0.
+def incluir_rutas():
+    mostrar("rutas.txt")
+    while True:
+        try:
+            print("Ingrese el codigo de ruta(Codigo salida - Codigo llegada)")
+            llegada = input("Ingre solo el codigo de llegada(ejemp: LIM): ").upper()
+            salida = input("Ingre solo el codigo de salida(ejemp: SJO): ").upper()
+            
+            codigo = llegada + "-" + salida
+            if verificar_rutas(codigo, "rutas.txt"):
+                print("Error: el codigo de ruta ya existe en el registro")
+            else:
+                break
+        except:
+            print("Error")
+
+    origen = input("Ingrese el nombre del lugar de origen: ")
+    destino = input("Ingrese el nombre del lugar de destino: ")
+    
+    while True:
+        try:
+            km = int(input("Ingrese la distancia total en kilometros(km): "))
+            km =str(km)
+            break
+        except:
+            print("Error: la entrada debe ser un numero entero")
+    
+    while True:
+        try:
+            tarifa = int(input("ingrese el valor en colones: "))
+            if tarifa < 1:
+                print("Error: la tarifa debe ser superior a 0")
+            else:
+                tarifa = str(tarifa)
+                break
+        except:
+            print("Error: la entrada no es un numero entero")
+
+    ruta = [codigo + ";" + origen + ";" + destino + ";" + km + ";" + tarifa]
+    guardarArchivo("rutas.txt",ruta[0])
