@@ -541,6 +541,21 @@ def verificar_paradas_rutas(codigo):
             lineas = archivo.readline()
     return True
 
+#E: codigo
+#S: valores boleanos dependiendo si encuentra similitudes
+#R: valida que codigo sea un string
+def verificar_salidas_rutas(codigo):
+    if not isinstance(codigo, str):
+        return "Error: entrada debe ser un string"
+    with open("salidas.txt", "r") as archivo:
+        lineas = archivo.readline()
+        while lineas != "":
+            lineas = lineas.strip().split(";")
+            if lineas[1] == codigo:
+                return False
+            lineas = archivo.readline()
+    return True
+
 #E: n/a
 #S: n/a, su funcion es eliminar una linea del archivo  mediantes el codigo
 #R: valida si el codigo ya existe en el archivo, verifica si el codigo esta vinculado a una parada o salida
