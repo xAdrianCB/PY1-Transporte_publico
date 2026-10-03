@@ -38,7 +38,9 @@ def mostrar(nombre_archivo):
             print(i, linea.strip())
             i+= 1
             linea = archivo.readline()
-
+#E: descripcion, modelos
+#S: valor boleano segun si la entrada se encuentra en el archivo de texto (modelos)
+#R: entrada debe ser string
 def verificar_descripcion(descripcion, modelos):
     if not isinstance(descripcion, str):
         return "Error: descripcion debe ser una entrada string"
@@ -758,7 +760,7 @@ def sumar_lista(paradas, lista):
 
 #E: n/a
 #S: n/a, incluye una nueva parada en base al indice introducido y re ordena el archivo
-#R: validaciones de indice
+#R: validaciones de indice y verificacion de tipo de entrada
 def incluir_paradas():
     rutas = leerArchivo("rutas.txt")
     mostrar("rutas.txt")
@@ -777,7 +779,7 @@ def incluir_paradas():
     mostrar_lista(lista)
 
     while True:
-        orden = int(input("digite el orden deseado dentro de la lista+: "))
+        orden = int(input("digite el orden deseado dentro de la lista: "))
 
         if orden > len(lista)+1 or orden < 1:
             print(f"Error: orden indicado tiene que ser entre 1 y {len(lista)}")
@@ -796,8 +798,8 @@ def incluir_paradas():
         elif orden-1 == len(lista) and km > int(lista[orden-2][3]):
             km = str(km)
             break
-        elif orden == 1 and lista[0][3] != "0" and km == 0:
-            km = str(km)
+        elif orden == 1 and lista == []:
+            km = str(0)
             break  
         elif km >= int(lista[orden-1][3]) or km <= int(lista[orden-2][3]):
             print(f"Error: la posicion seleccionada debe tener un rango entre ({lista[orden-1][3]},{lista[orden][3]})")  
@@ -809,14 +811,14 @@ def incluir_paradas():
     paradas = sumar_lista(paradas, lista)
     with open("paradas.txt", "w") as archivo:
         i = 0
-        while i < len(lista):
+        while i < len(paradas):
             archivo.write(paradas[i][0] + ";" + paradas[i][1] + ";" + paradas[i][2] + ";" + paradas[i][3] +"\n")
             i+= 1
     print("Se modifico con exito")
 
-#E:
-#S:
-#R:
+#E: n/a
+#S: n/a, eliminar una fila y ordena el indice
+#R: validaciones de indice y verificacion de tipo de entrada
 def eliminar_paradas():
     rutas = leerArchivo("rutas.txt")
     mostrar("rutas.txt")
@@ -827,7 +829,6 @@ def eliminar_paradas():
             print("Error: indice no esta dentro del rango")
         else:
             codigo = rutas[indice-1][0]
-            kmMayor = rutas[indice-1][3]
             break
     
     lista= extraer_lista(rutas[indice-1][0])
@@ -863,8 +864,61 @@ def eliminar_paradas():
             archivo.write(paradas[i][0] + ";" + paradas[i][1] + ";" + paradas[i][2] + ";" + paradas[i][3] +"\n")
             i+= 1
     print("Se modifico con exito")
+#E: n/a
+#S: n/a, 
+#R: validaciones de indice y verificacion de tipo de entrada
+def modificar_paradas():
+    rutas = leerArchivo("rutas.txt")
+    mostrar("rutas.txt")
+    while True:
+        indice = int(input("digite el indice de la ruta que desea ver: "))
+
+        if indice < 1 or indice > len(rutas):
+            print("Error: indice no esta dentro del rango")
+        else:
+            codigo = rutas[indice-1][0]
+            kmMayor = rutas[indice-1][3]
+            break
+    
+    lista= extraer_lista(rutas[indice-1][0])
+    lista = ordenar_lista(lista)
+    mostrar_lista(lista)
+    while True:
+        indice = int(input("selecione la linea que desea modificar mediante indice: "))
+
+        if indice < 1 or indice > len(lista):
+            print("Error: indice no esta dentro del rango")
+        else:
+            break
+    nombre= input("Ingrese el nombre de la parada: ")
+    while True:
+        km = input("Ingrese los kilometros: ")
+        if int(lista[indice-1][1]) < len(lista) and km > kmMayor:
+            print("Error: los kilometros ingresados superan el limite")
+        else:
+            break
     
         
-            
+                    
+    if codigo != "":
+        lista[indice-1][0] = codigo
+    """
+    if orden != "":
+        lista[indice-1][1] = orden
+    """
+    if nombre != "":
+        lista[indice-1][2] = nombre
+    if km != "":
+        lista[indice-1][3] = km
+
+    paradas = quitar_paradas(lista,codigo)
+    paradas = sumar_lista(paradas, lista)
+    
+    with open("paradas.txt", "w") as archivo:
+        i = 0
+        while i < len(paradas):
+            archivo.write(paradas[i][0] + ";" + paradas[i][1] + ";" + paradas[i][2] + ";" +paradas[i][3] +"\n")
+            i+= 1
+    print("Se modifico con exito")
             
     
