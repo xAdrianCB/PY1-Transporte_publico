@@ -865,7 +865,7 @@ def eliminar_paradas():
             i+= 1
     print("Se modifico con exito")
 #E: n/a
-#S: n/a, 
+#S: n/a, modifica elementos de una lista selecionada
 #R: validaciones de indice y verificacion de tipo de entrada
 def modificar_paradas():
     rutas = leerArchivo("rutas.txt")
@@ -920,5 +920,124 @@ def modificar_paradas():
             archivo.write(paradas[i][0] + ";" + paradas[i][1] + ";" + paradas[i][2] + ";" +paradas[i][3] +"\n")
             i+= 1
     print("Se modifico con exito")
-            
+
+#E: indice
+#S: retorna el elemento selecionado en la lista de rutas
+#R: el indice debe estar dentro del rango, indice debe ser un numero entero y nombre_archivo un string
+def obtener_elemento(indice,nombre_archivo):
+    if not issubclass(indice, int):
+        return "Error: "
+    if not isinstance(nombre_archivo, str):
+        return "Error: "
+    lista = leerArchivo(nombre_archivo)
+    if indice > len(lista) or indice < 1:
+        return "Error: el indice no cumple con el rango"
+    i = 0
+    while i < len(lista):
+        if i == indice-1 :
+            return lista[i][0]
+        i += 1
+    return "No se encontro elementos en el archivo"
+
+
+#
+#
+#
+def incluir_salidas():
+    lista = leerArchivo("salidas.txt")
+    mostrar("salidas.txt")
+    if len(lista)+1 < 10:
+        cod = "S00" + str(len(lista)+1)
+    elif len(lista)+1 < 100:
+        cod = "S0" + str(len(lista)+1)
+    else:
+        cod = "S" + str(len(lista)+1)
+    print(cod)
     
+    mostrar("rutas.txt")
+    rutas = leerArchivo("rutas.txt")
+    while True:
+        try:
+            indice = int(input("Ingrese el indice del codigo: "))
+            if indice > len(rutas):
+                print("Error: el indice supera el rango de la lista rutas")
+            else:
+                break
+        except:
+            print("Error")
+    ruta = obtener_elemento(indice,"ruta.txt")
+
+    while True:
+        try:
+            dia = int(input("Ingre solo el dia: "))
+            mes = int(input("Ingrese solo el mes: "))
+            anio = int(input("Ingrese solo el año: "))
+            if dia > 31 or dia < 1:
+                print("Error: el dia no esta dentro del rango(1 y 30)")
+            elif mes > 12 or mes < 1:
+                print("Error: el mes no esta dentro del rango(1 y 12)")
+            else:
+                vencimiento = str(dia) + "/" + str(mes) + "/" + str(anio)
+                break
+        except:
+            print("Error, alguna de las entradas no es un numero entero")
+
+    while True:
+        try:
+            h_salida = int(input("Ingrese la hora de salida (06 o 12): "))
+            m_salida = int(input("Ingrese los  minutos de salida(:05 o :30): "))
+            h_entrada = int(input("Ingrese la hora de entrada(06 o 12): "))
+            m_entrada = int(input("Ingrese los  minutos de entrada(:05 o :30): "))
+            if h_salida * 60 + m_salida >= h_entrada*60 + m_entrada:
+                print("Error: la hora estimada de llegada no puede ser posterior a la salida")
+            else:
+                salida = h_salida +":"+ m_salida
+                entrada = h_entrada +":"+ m_entrada
+                break
+        except:
+            print("Error")
+    
+    mostrar("unidades.txt")
+    unidades = leerArchivo("unidades.txt")
+    while True:
+        try:
+            indice = int(input("Ingrese el indice del codigo: "))
+            if indice > len(unidades):
+                print("Error: el indice supera el rango de la lista unidades")
+            
+            else:
+                placa = obtener_elemento(indice,"unidades.txt")
+                if existe_traslape(placa,lista,2, salida, entrada):
+                    print("Error: ")
+                else:
+                    break
+        except:
+            print("Error")
+
+    mostrar("conductores.txt")
+    conductores = leerArchivo("conductores.txt")
+    while True:
+        try:
+            indice = int(input("Ingrese el indice del codigo: "))
+            if indice > len(conductores):
+                print("Error: el indice supera el rango de la lista conductores")
+
+            cedula = obtener_elemento(indice,"conductores.txt")
+            if existe_traslape(cedula,lista,3,salida, entrada):
+                print("Error: ")
+            if validar_licencia(cedula,conductores,vencimiento):
+                print("Error: ")
+                
+            elif horas_totales(cedula,lista,conductores,salida):
+                print("Error: ")
+            else:
+                break
+        except:
+            print("Error")
+
+    
+
+   
+
+    ruta = [codigo + ";" + origen + ";" + destino + ";" + km + ";" + tarifa]
+    guardarArchivo("rutas.txt",ruta[0])
