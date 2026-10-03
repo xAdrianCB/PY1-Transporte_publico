@@ -675,3 +675,22 @@ def extraer_lista(ruta):
                 lista += [linea]
             lineas = archivo.readline()
     return lista
+
+#E: lista
+#S: retorna la lista
+#R: entrada debe ser tipo lista
+def ordenar_lista(lista):
+    if not isinstance(lista, list):
+        return "Error: entrada debe ser una lista"
+    i= 0
+    while i < len(lista):
+        fil = 0
+        while fil < len(lista)-1:
+            if lista[fil][1]>lista[fil+1][1]:
+                mayor = lista[fil]
+                menor = lista[fil+1]
+                lista[fil] = menor
+                lista[fil+1] = mayor
+            fil+= 1
+        i+= 1
+    return lista
