@@ -466,6 +466,7 @@ def modificar_conductor():
             archivo.write(conductores[i][0] + ";" + conductores[i][1] + ";" + conductores[i][2] + ";" + conductores[i][3] + ";" + conductores[i][4]+"\n")
             i+= 1
     print("Se modifico con exito")
+
 #E: codigo, nombre_archivo
 #S: retorna valor booleano que determina si el elemento se escuenta en el archivo
 #R: ambas entradas deben ser string
@@ -571,11 +572,12 @@ def eliminar_rutas():
             
             codigo = llegada + "-" + salida
             if not verificar_rutas(codigo, "rutas.txt"):
-                print("Error: el codigo de ruta ya existe en el registro")
+                print("Error: el codigo de ruta no existe en el registro")
             else:
                 break
         except:
             print("Error")
+            
     if verificar_paradas_rutas(codigo):       
         if verificar_salidas_rutas(codigo):
             with open("rutas.txt", "w") as archivo:
@@ -589,3 +591,71 @@ def eliminar_rutas():
             print("Error: la ruta no debe estar vinculado a salidas programadas")
     else:
         print("Error: la ruta no debe estar vinculado a paradas registradas")
+
+#E: n/a
+#S: modifica una linea del archivo txt por medio de un indice
+#R: el codigo ingresada no puede existir en el archivo, km = int, km >0
+def modificar_rutas():
+    rutas = leerArchivo("rutas.txt")
+    mostrar("rutas.txt")
+    while True:
+        indice = int(input("selecione el indice de la fila que desea modificar: "))
+
+        if indice < 1 or indice > len(rutas):
+            print("Error: indice no esta dentro del rango")
+        else:
+            break
+    
+    while True:
+        try:
+            print("Ingrese el codigo de ruta(Codigo salida - Codigo llegada)")
+            llegada = input("Ingre solo el codigo de llegada(ejemp: LIM): ").upper()
+            salida = input("Ingre solo el codigo de salida(ejemp: SJO): ").upper()
+            
+            codigo = llegada + "-" + salida
+            if verificar_rutas(codigo, "rutas.txt"):
+                codigo = ""
+                break
+            else:
+                break
+        except:
+            print("Error")
+    origen = input("Ingrese el nombre del lugar de origen: ")
+    destino = input("Ingrese el nombre del lugar de destino: ")
+    
+    while True:
+        try:
+            km = int(input("Ingrese la distancia total en kilometros(km): "))
+            km =str(km)
+            break
+        except:
+            print("Error: la entrada debe ser un numero entero")
+    
+    while True:
+        try:
+            tarifa = int(input("ingrese el valor en colones: "))
+            if tarifa < 1:
+                print("Error: la tarifa debe ser superior a 0")
+            else:
+                tarifa = str(tarifa)
+                break
+        except:
+            print("Error: la entrada no es un numero entero")
+    
+    if codigo != "":
+        rutas[indice-1][0] = codigo
+    if origen != "":
+        rutas[indice-1][1] = origen
+    if destino != "":
+        rutas[indice-1][2] = destino
+    if km != "":
+        rutas[indice-1][3] = km
+    if tarifa != "":
+        rutas[indice-1][4] = tarifa
+    
+    with open("rutas.txt", "w") as archivo:
+        i = 0
+        while i < len(rutas):
+            archivo.write(rutas[i][0] + ";" + rutas[i][1] + ";" + rutas[i][2] + ";" + rutas[i][3] + ";" + rutas[i][4]+"\n")
+            i+= 1
+    print("Se modifico con exito")
