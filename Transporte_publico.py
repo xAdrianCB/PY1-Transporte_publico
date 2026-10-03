@@ -526,3 +526,36 @@ def incluir_rutas():
     ruta = [codigo + ";" + origen + ";" + destino + ";" + km + ";" + tarifa]
     guardarArchivo("rutas.txt",ruta[0])
 
+#E: n/a
+#S: n/a, su funcion es eliminar una linea del archivo  mediantes el codigo
+#R: valida si el codigo ya existe en el archivo, verifica si el codigo esta vinculado a una parada o salida
+def eliminar_rutas():
+    rutas = leerArchivo("rutas.txt")
+    mostrar("rutas.txt")
+
+    while True:
+        try:
+            print("Ingrese el codigo de ruta(Codigo salida - Codigo llegada)")
+            llegada = input("Ingre solo el codigo de llegada(ejemp: LIM): ").upper()
+            salida = input("Ingre solo el codigo de salida(ejemp: SJO): ").upper()
+            
+            codigo = llegada + "-" + salida
+            if not verificar_rutas(codigo, "rutas.txt"):
+                print("Error: el codigo de ruta ya existe en el registro")
+            else:
+                break
+        except:
+            print("Error")
+    if verificar_paradas_rutas(codigo):       
+        if verificar_salidas_rutas(codigo):
+            with open("rutas.txt", "w") as archivo:
+                i = 0
+                while i< len(rutas):
+                    if codigo != rutas[i][0]:
+                        archivo.write(rutas[i][0] + ";" + rutas[i][1] + ";" + rutas[i][2] + ";" + rutas[i][3] + ";" + rutas[i][4] + "\n")
+                    i+= 1
+                print("ruta eliminada")
+        else:
+            print("Error: la ruta no debe estar vinculado a salidas programadas")
+    else:
+        print("Error: la ruta no debe estar vinculado a paradas registradas")
