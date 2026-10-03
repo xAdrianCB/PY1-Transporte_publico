@@ -150,7 +150,7 @@ def obtener_modelos(indice):
             return modelos[i][0]
         i += 1
 #E: placa, nombre_archivo
-#S: valor booleano que determina si el elemento se escuenta en la lista
+#S: retorna valor booleano que determina si el elemento se escuenta en el archivo
 #R: ambas entradas deben ser string
 def verificar_placa(placa, nombre_archivo):
     if not isinstance(placa, str):
@@ -266,6 +266,9 @@ def modificar_unidades():
             i+= 1
     print("Se modifico con exito")
 
+#E: cedula, nombre_archivo
+#S: retorna valor booleano que determina si el elemento se escuenta en el archivo
+#R: ambas entradas deben ser string
 def verificar_cedula(cedula, nombre_archivo):
     if not isinstance(cedula,str):
         print("Error: entrada cedula debe ser tipo string")
@@ -463,7 +466,9 @@ def modificar_conductor():
             archivo.write(conductores[i][0] + ";" + conductores[i][1] + ";" + conductores[i][2] + ";" + conductores[i][3] + ";" + conductores[i][4]+"\n")
             i+= 1
     print("Se modifico con exito")
-
+#E: codigo, nombre_archivo
+#S: retorna valor booleano que determina si el elemento se escuenta en el archivo
+#R: ambas entradas deben ser string
 def verificar_rutas(codigo, nombre_archivo):
     if not isinstance(codigo,str):
         print("Error: entrada codigo debe ser tipo string")
@@ -520,3 +525,4 @@ def incluir_rutas():
 
     ruta = [codigo + ";" + origen + ";" + destino + ";" + km + ";" + tarifa]
     guardarArchivo("rutas.txt",ruta[0])
+
