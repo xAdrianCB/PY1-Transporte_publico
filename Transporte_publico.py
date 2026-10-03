@@ -465,6 +465,16 @@ def modificar_conductor():
     print("Se modifico con exito")
 
 def verificar_rutas(codigo, nombre_archivo):
+    if not isinstance(codigo,str):
+        print("Error: entrada codigo debe ser tipo string")
+    if not isinstance(nombre_archivo,str):
+        print("Error: entrada nombre_archivo debe ser tipo string")
+    rutas = leerArchivo(nombre_archivo)
+    i = 0
+    while i < len(rutas):
+        if rutas[i][0] == codigo:
+            return True
+        i+= 1    
     return False
 
 #E: n/a
