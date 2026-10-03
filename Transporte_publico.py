@@ -659,3 +659,19 @@ def modificar_rutas():
             archivo.write(rutas[i][0] + ";" + rutas[i][1] + ";" + rutas[i][2] + ";" + rutas[i][3] + ";" + rutas[i][4]+"\n")
             i+= 1
     print("Se modifico con exito")
+
+#E: ruta
+#S: retorna una lista de archivo de texto d eparadas
+#R: entrada debe ser tipo string
+def extraer_lista(ruta):
+    if not isinstance(ruta, str):
+        return "Errror: entrada debe ser tipo string"
+    lista = []
+    with open("paradas.txt","r") as archivo:
+        lineas = archivo.readline()
+        while lineas != "":
+            linea = lineas.strip().split(";")
+            if linea[0] == ruta.upper(): 
+                lista += [linea]
+            lineas = archivo.readline()
+    return lista
