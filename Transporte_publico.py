@@ -763,7 +763,7 @@ def incluir_paradas():
     rutas = leerArchivo("rutas.txt")
     mostrar("rutas.txt")
     while True:
-        indice = int(input("digite el indice de la fila que desea incluir: "))
+        indice = int(input("digite el indice de la ruta que desea ver: "))
 
         if indice < 1 or indice > len(rutas):
             print("Error: indice no esta dentro del rango")
@@ -807,14 +807,64 @@ def incluir_paradas():
     lista= incluir_lista(lista,[codigo, str(orden), nombre, km],orden-1) 
     paradas = quitar_paradas(lista,codigo)
     paradas = sumar_lista(paradas, lista)
-    print(paradas)
     with open("paradas.txt", "w") as archivo:
         i = 0
         while i < len(lista):
             archivo.write(paradas[i][0] + ";" + paradas[i][1] + ";" + paradas[i][2] + ";" + paradas[i][3] +"\n")
             i+= 1
     print("Se modifico con exito")
+
+#E:
+#S:
+#R:
+def eliminar_paradas():
+    rutas = leerArchivo("rutas.txt")
+    mostrar("rutas.txt")
+    while True:
+        indice = int(input("digite el indice de la ruta que desea ver: "))
+
+        if indice < 1 or indice > len(rutas):
+            print("Error: indice no esta dentro del rango")
+        else:
+            codigo = rutas[indice-1][0]
+            kmMayor = rutas[indice-1][3]
+            break
     
+    lista= extraer_lista(rutas[indice-1][0])
+    lista = ordenar_lista(lista)
+    mostrar_lista(lista)
+
+    while True:
+        orden = int(input("digite el orden que desea eliminar: "))
+        if orden == 1:
+            km = "0"
+            break
+        elif orden > len(lista)+1 or orden < 1:
+            print("Error: fuera de rango")
+        else:
+            break
+    a = 1
+    i = 1
+    listaN = []
+    while lista != []:
+        if a != orden:
+            lista[0][1] = str(i)
+            listaN+= [lista[0]]
+            i+= 1
+        a+= 1
+        lista = lista[1:]
     
+    paradas = quitar_paradas(listaN,codigo)
+    paradas = sumar_lista(paradas, listaN)
+    print(paradas)
+    with open("paradas.txt", "w") as archivo:
+        i = 0
+        while i < len(paradas):
+            archivo.write(paradas[i][0] + ";" + paradas[i][1] + ";" + paradas[i][2] + ";" + paradas[i][3] +"\n")
+            i+= 1
+    print("Se modifico con exito")
     
+        
+            
+            
     
