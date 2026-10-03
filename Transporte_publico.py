@@ -695,6 +695,67 @@ def ordenar_lista(lista):
         i+= 1
     return lista
 
+#E: lista
+#S: retorna la lista
+#R: entrada debe ser tipo lista
+def mostrar_lista(lista):
+    i= 0
+    print(["Codigo"]+["ord"]+["Parada"]+["km"])
+    while i< len(lista)-1:
+        print(lista[i])
+        i+= 1
+
+#E: lista,lista2, orden
+#S: retorna la lista de los elementos sustituidos
+#R: lista y lista2 deben ser tipo lista, orden debe ser un numero entero
+def incluir_lista(lista,lista2, orden):
+    if not isinstance(lista, list):
+        return "Error: entrada lista debe ser una lista"
+    if not isinstance(lista2, list):
+        return "Error: entrada lista2 debe ser una lista"
+    if not isinstance(orden, int):
+        return "Error: entrada debe ser un numero entero"
+    Nlista = []
+    i = 0
+    a = 1
+    while i< len(lista)-1:
+        if i == orden:
+            Nlista += [lista2]
+            a+= 1
+        lista[i][1] = str(a)
+        Nlista += [lista[i]]
+        i+= 1
+        a+= 1
+    return Nlista
+
+#E: lista,codigo
+#S: retorna la lista de los elementos que no tienen el elemento indicado
+#R: lista deben ser tipo lista y codigo tipo string
+def quitar_paradas(lista,codigo):
+    if not isinstance(lista, list):
+        return "Errror: entrada lista debe ser una lista"
+    if not isinstance(codigo, str):
+        return "Error: entrada codigo debe ser de tipo string"
+    listaN = []
+    while lista != []:
+        if lista[0][0] != codigo:
+            listaN += lista[0]
+        lista = lista[1:]
+    return listaN
+
+#E: paradas, lista
+#S: retorna la lista para con los lementos de la lista agregados
+#R: lista y paradas deben ser tipo lista
+def sumar_lista(paradas, lista):
+    if not isinstance(lista, list):
+        return "Error: entrada lista debe ser una lista"
+    if not isinstance(paradas, list):
+        return "Error: entrada paradas debe ser una lista"
+    while lista != []:
+        paradas += [lista[0]]
+        lista = lista[1:]
+    return paradas
+
 #E: n/a
 #S: n/a, incluye una nueva parada en base al indice introducido y re ordena el archivo
 #R: validaciones de indice
