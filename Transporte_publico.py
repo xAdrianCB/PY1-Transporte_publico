@@ -925,7 +925,7 @@ def modificar_paradas():
 #S: retorna el elemento selecionado en la lista de rutas
 #R: el indice debe estar dentro del rango, indice debe ser un numero entero y nombre_archivo un string
 def obtener_elemento(indice,nombre_archivo):
-    if not issubclass(indice, int):
+    if not isinstance(indice, int):
         return "Error: "
     if not isinstance(nombre_archivo, str):
         return "Error: "
@@ -938,11 +938,27 @@ def obtener_elemento(indice,nombre_archivo):
             return lista[i][0]
         i += 1
     return "No se encontro elementos en el archivo"
+#E: elem,lista , indice, salida, entrada
+#S:
+#R:
+def existe_traslape(elem,lista , indice, salida, entrada):
+    return False
 
+#E: elem,lista,fecha
+#S:
+#R:
+def validar_licencia(elem,lista,fecha):
+    return False
 
-#
-#
-#
+#E: elem,lista,lista2,salida
+#S:
+#R:
+def horas_totales(elem,lista,lista2,salida):
+    return False
+
+#E:n/a
+#S:
+#R:
 def incluir_salidas():
     lista = leerArchivo("salidas.txt")
     mostrar("salidas.txt")
@@ -965,34 +981,41 @@ def incluir_salidas():
                 break
         except:
             print("Error")
-    ruta = obtener_elemento(indice,"ruta.txt")
+    ruta = obtener_elemento(indice-1,"rutas.txt")
 
     while True:
         try:
-            dia = int(input("Ingre solo el dia: "))
-            mes = int(input("Ingrese solo el mes: "))
-            anio = int(input("Ingrese solo el año: "))
-            if dia > 31 or dia < 1:
+            dia = input("Ingre solo el dia: ")
+            mes = input("Ingrese solo el mes: ")
+            anio = input("Ingrese solo el año: ")
+            if int(dia) > 31 or int(dia) < 1:
                 print("Error: el dia no esta dentro del rango(1 y 30)")
-            elif mes > 12 or mes < 1:
+            elif int(mes) > 12 or int(mes) < 1:
                 print("Error: el mes no esta dentro del rango(1 y 12)")
             else:
-                vencimiento = str(dia) + "/" + str(mes) + "/" + str(anio)
+                vencimiento = dia + "/" + mes + "/" + anio
+                print(vencimiento)
                 break
         except:
             print("Error, alguna de las entradas no es un numero entero")
 
     while True:
         try:
-            h_salida = int(input("Ingrese la hora de salida (06 o 12): "))
-            m_salida = int(input("Ingrese los  minutos de salida(:05 o :30): "))
-            h_entrada = int(input("Ingrese la hora de entrada(06 o 12): "))
-            m_entrada = int(input("Ingrese los  minutos de entrada(:05 o :30): "))
-            if h_salida * 60 + m_salida >= h_entrada*60 + m_entrada:
+            h_salida = input("Ingrese la hora de salida (06 o 12): ")
+            m_salida = input("Ingrese los  minutos de salida(:05 o :30): ")
+            h_entrada = input("Ingrese la hora de entrada(06 o 12): ")
+            m_entrada = input("Ingrese los  minutos de entrada(:05 o :30): ")
+            if int(h_salida) * 60 + int(m_salida) >= int(h_entrada)*60 + int(m_entrada):
                 print("Error: la hora estimada de llegada no puede ser posterior a la salida")
+            if int(h_salida) > 24 or int(h_entrada) > 24 :
+                print("Error: las horas deben ser de un rango entre 01 al 24")
+            if int(m_salida) >59 or int(m_entrada) > 59:
+                print("Error: los minutos deben ser de un rango entre 00 y 59")
             else:
                 salida = h_salida +":"+ m_salida
                 entrada = h_entrada +":"+ m_entrada
+                print(salida)
+                print(entrada)
                 break
         except:
             print("Error")
@@ -1006,7 +1029,7 @@ def incluir_salidas():
                 print("Error: el indice supera el rango de la lista unidades")
             
             else:
-                placa = obtener_elemento(indice,"unidades.txt")
+                placa = obtener_elemento(indice-1,"unidades.txt")
                 if existe_traslape(placa,lista,2, salida, entrada):
                     print("Error: ")
                 else:
@@ -1022,7 +1045,7 @@ def incluir_salidas():
             if indice > len(conductores):
                 print("Error: el indice supera el rango de la lista conductores")
 
-            cedula = obtener_elemento(indice,"conductores.txt")
+            cedula = obtener_elemento(indice-1,"conductores.txt")
             if existe_traslape(cedula,lista,3,salida, entrada):
                 print("Error: ")
             if validar_licencia(cedula,conductores,vencimiento):
