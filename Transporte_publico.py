@@ -694,3 +694,66 @@ def ordenar_lista(lista):
             fil+= 1
         i+= 1
     return lista
+
+#E: n/a
+#S: n/a, incluye una nueva parada en base al indice introducido y re ordena el archivo
+#R: validaciones de indice
+def incluir_paradas():
+    rutas = leerArchivo("rutas.txt")
+    mostrar("rutas.txt")
+    while True:
+        indice = int(input("digite el indice de la fila que desea incluir: "))
+
+        if indice < 1 or indice > len(rutas):
+            print("Error: indice no esta dentro del rango")
+        else:
+            codigo = rutas[indice-1][0]
+            kmMayor = rutas[indice-1][3]
+            break
+    
+    lista= extraer_lista(rutas[indice-1][0])
+    lista = ordenar_lista(lista)
+    mostrar_lista(lista)
+
+    while True:
+        orden = int(input("digite el orden deseado dentro de la lista+: "))
+
+        if orden > len(lista)+1 or orden < 1:
+            print(f"Error: orden indicado tiene que ser entre 1 y {len(lista)}")
+        elif orden == 1 and lista[0][3] == "0":
+            print("Error: ya existe una salida para la ruta")
+        else:
+            break
+
+    nombre = input("Introduzca el nombre de la parada: ")
+
+    while True:
+        #recordar que el indice real en lista es orden-1
+        km = int(input("digite la cantidad de kilometros: "))
+        if orden == 1 and km != 0:
+            print("Error: orden en la posicion 1 debe tener 0 km")
+        elif orden-1 == len(lista) and km > int(lista[orden-2][3]):
+            km = str(km)
+            break
+        elif orden == 1 and lista[0][3] != "0" and km == 0:
+            km = str(km)
+            break  
+        elif km >= int(lista[orden-1][3]) or km <= int(lista[orden-2][3]):
+            print(f"Error: la posicion seleccionada debe tener un rango entre ({lista[orden-1][3]},{lista[orden][3]})")  
+        else:
+            km = str(km)
+            break
+    lista= incluir_lista(lista,[codigo, str(orden), nombre, km],orden-1) 
+    paradas = quitar_paradas(lista,codigo)
+    paradas = sumar_lista(paradas, lista)
+    print(paradas)
+    with open("paradas.txt", "w") as archivo:
+        i = 0
+        while i < len(lista):
+            archivo.write(paradas[i][0] + ";" + paradas[i][1] + ";" + paradas[i][2] + ";" + paradas[i][3] +"\n")
+            i+= 1
+    print("Se modifico con exito")
+    
+    
+    
+    
