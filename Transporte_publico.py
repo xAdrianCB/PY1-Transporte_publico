@@ -930,7 +930,7 @@ def obtener_elemento(indice,nombre_archivo):
     if not isinstance(nombre_archivo, str):
         return "Error: "
     lista = leerArchivo(nombre_archivo)
-    if indice > len(lista) or indice < 1:
+    if indice > len(lista) or indice < 0:
         return "Error: el indice no cumple con el rango"
     i = 0
     while i < len(lista):
@@ -938,11 +938,30 @@ def obtener_elemento(indice,nombre_archivo):
             return lista[i][0]
         i += 1
     return "No se encontro elementos en el archivo"
+#E: hora
+#s: retorna las horas en minutos
+#R: n/a
+def minutos(hora):
+    lista = hora.split(":")
+    tiempo = int(lista[0]) * 60 + int(lista[1])
+    return tiempo
 #E: elem,lista , indice, salida, entrada
-#S:
-#R:
-def existe_traslape(elem,lista , indice, salida, entrada):
+#S: retorna valor booleano segun si encuentra un traslape
+#R: n/a
+def existe_traslape(elem,lista , indice,fecha, salida, entrada):
+    n_salida = minutos(salida)
+    n_entrada = minutos(entrada)
+    i = 0
+    while i < len(lista):
+        if lista[i][indice] == elem and lista[i][4] == fecha:
+            e_salida = minutos(lista[i][5])
+            e_entrada = minutos(lista[i][6])
+
+            if n_salida < e_entrada and n_entrada > e_salida:
+                return True
+        i+= 1
     return False
+        
 
 #E: elem,lista,fecha
 #S:
@@ -993,8 +1012,8 @@ def incluir_salidas():
             elif int(mes) > 12 or int(mes) < 1:
                 print("Error: el mes no esta dentro del rango(1 y 12)")
             else:
-                vencimiento = dia + "/" + mes + "/" + anio
-                print(vencimiento)
+                fecha = dia + "/" + mes + "/" + anio
+                print(fecha)
                 break
         except:
             print("Error, alguna de las entradas no es un numero entero")
@@ -1030,7 +1049,8 @@ def incluir_salidas():
             
             else:
                 placa = obtener_elemento(indice-1,"unidades.txt")
-                if existe_traslape(placa,lista,2, salida, entrada):
+                print(placa)
+                if existe_traslape(placa,lista,2,fecha, salida, entrada):
                     print("Error: ")
                 else:
                     break
@@ -1046,9 +1066,9 @@ def incluir_salidas():
                 print("Error: el indice supera el rango de la lista conductores")
 
             cedula = obtener_elemento(indice-1,"conductores.txt")
-            if existe_traslape(cedula,lista,3,salida, entrada):
+            if existe_traslape(cedula,lista,3,fecha,salida, entrada):
                 print("Error: ")
-            if validar_licencia(cedula,conductores,vencimiento):
+            if validar_licencia(cedula,conductores,fecha):
                 print("Error: ")
                 
             elif horas_totales(cedula,lista,conductores,salida):
@@ -1057,10 +1077,5 @@ def incluir_salidas():
                 break
         except:
             print("Error")
-
-    
-
-   
-
-    ruta = [codigo + ";" + origen + ";" + destino + ";" + km + ";" + tarifa]
-    guardarArchivo("rutas.txt",ruta[0])
+    salidas = [cod + ";" + ruta + ";" + fecha + ";" + salida + ";" + entrada]
+    guardarArchivo("salidas.txt",salidas[0])
