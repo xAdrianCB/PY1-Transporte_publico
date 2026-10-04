@@ -22,9 +22,6 @@ def guardarArchivo(nombre_archivo, datos):
         print("Datos guardados con exito")
     #preguntar si debo mostrar los datos del archivo de nuevo
 
-def menu():
-    return
-
 #E: nombre_archivo
 #S: muestra mediante prints las lineas de determiando archivo con indice
 #R: entrada debe ser tipo string
@@ -1122,3 +1119,258 @@ def incluir_salidas():
             print("Error")
     salidas = [cod + ";" + ruta + ";" + fecha + ";" + salida + ";" + entrada]
     guardarArchivo("salidas.txt",salidas[0])
+
+def menu():
+    while True:
+        print("======WELCOME========")
+        print("(1). Opciones Administrativas")
+        print("(2). Opciones de Usuario")
+        print("(3). salir")
+
+        opcion = input("Seleccione una opcion: ")
+
+        if opcion == "1":
+            if encriptado():
+                menu_administrativo()
+            break
+        elif opcion == "2":
+            menu_usuario()
+            break
+        elif opcion == "3":
+            break
+
+        else:
+            print("Error: opcion invalida")
+
+def encriptado():
+    acceso = leerArchivo("acceso.txt")
+    while True:
+        usuario = input("Ingrese el nombre de usuario: ")
+        contraseña = input("Ingrese la contraseña: ")
+
+        i = 0
+        while i< len(acceso):
+            if (acceso[i][0]).upper() == usuario.upper() and (acceso[i][1]).upper() == contraseña.upper():
+                print("Acceso correcto")
+                return True
+            i+= 1
+        print("Usuario o contraseña incorrectos")
+
+def menu_administrativo():
+    print("===Menus Administrativo==")
+    while True:
+        print("(1). Gestión de modelos de autobús")
+        print("(2). Gestión de unidades")
+        print("(3). Gestión de conductores")
+        print("(4). Gestión de rutas")
+        print("(5). Gestión de paradas por ruta")
+        print("(6). Programación de salidas")
+        print("(5). salir")
+
+        opcion = input("Seleccione una opcion: ")
+
+        if opcion == "1":
+            gestion_modelos_autobús()
+            break
+        elif opcion == "2":
+            gestion_unidades()
+            break
+        elif opcion == "3":
+            gestion_conductores()
+            break
+        elif opcion == "4":
+            gestion_rutas()
+            break
+        elif opcion == "5":
+            gestion_paradas()
+            break
+        elif opcion == "6":
+            programacion_salidas()
+            break
+        elif opcion == "7":
+            print("Hasta luego ;D")
+            break
+
+        else:
+            print("Error: opcion invalida")
+
+def gestion_modelos_autobús():
+    print("===Gestión de modelos de autobús==")
+    while True:
+        print("(1). Incluir Modelos")
+        print("(2). Eliminar Modelos")
+        print("(3). Modificar Modelos")
+        print("(4). Mostrar Modelos")
+        print("(5). salir")
+
+        opcion = input("Seleccione una opcion: ")
+
+        if opcion == "1":
+            incluir_modelos()
+            break
+        elif opcion == "2":
+            eliminar_modelos()
+            break
+        elif opcion == "3":
+            modificar_modelos()
+            break
+        elif opcion == "4":
+            mostrar("modelos.txt")
+            break
+        elif opcion == "5":
+            print("Hasta luego ;D")
+            break
+
+        else:
+            print("Error: opcion invalida")
+
+def gestion_unidades():
+    print("===Gestión de unidades==")
+    while True:
+        print("(1). Incluir Unidades")
+        print("(2). Eliminar Unidades")
+        print("(3). Modificar Unidades")
+        print("(4). Mostrar de Unidades")
+        print("(5). salir")
+
+        opcion = input("Seleccione una opcion: ")
+
+        if opcion == "1":
+            incluir_unidades()
+            break
+        elif opcion == "2":
+            eliminar_unidades()
+            break
+        elif opcion == "3":
+            modificar_unidades()
+            break
+        elif opcion == "4":
+            mostrar("unidades.txt")
+            break
+        elif opcion == "5":
+            print("Hasta luego ;D")
+            break
+
+        else:
+            print("Error: opcion invalida")
+def gestion_conductores():
+    print("===Gestión de conductores==")
+    while True:
+        print("(1). Incluir conductores")
+        print("(2). Eliminar conductores")
+        print("(3). Modificar conductores")
+        print("(4). Mostrar de conductores")
+        print("(5). salir")
+
+        opcion = input("Seleccione una opcion: ")
+
+        if opcion == "1":
+            incluir_conductor()
+            break
+        elif opcion == "2":
+            eliminar_conductor()
+            break
+        elif opcion == "3":
+            modificar_conductor()
+            break
+        elif opcion == "4":
+            mostrar("conductores.txt")
+            break
+        elif opcion == "5":
+            print("Hasta luego ;D")
+            break
+
+        else:
+            print("Error: opcion invalida")
+
+def gestion_rutas():
+    print("===Gestión de rutas==")
+    while True:
+        print("(1). Incluir rutas")
+        print("(2). Eliminar rutas")
+        print("(3). Modificar rutas")
+        print("(4). Mostrar de rutas")
+        print("(5). salir")
+
+        opcion = input("Seleccione una opcion: ")
+
+        if opcion == "1":
+            incluir_rutas()
+            break
+        elif opcion == "2":
+            eliminar_rutas()
+            break
+        elif opcion == "3":
+            modificar_rutas()
+            break
+        elif opcion == "4":
+            mostrar("rutas.txt")
+            break
+        elif opcion == "5":
+            print("Hasta luego ;D")
+            break
+
+        else:
+            print("Error: opcion invalida")
+
+def gestion_paradas():
+    print("===Gestión de paradas por rutas==")
+    while True:
+        print("(1). Incluir paradas por ruta")
+        print("(2). Eliminar paradas por ruta")
+        print("(3). Modificar paradas por ruta")
+        print("(4). Mostrar paradas por ruta")
+        print("(5). salir")
+
+        opcion = input("Seleccione una opcion: ")
+
+        if opcion == "1":
+            incluir_paradas()
+            break
+        elif opcion == "2":
+            eliminar_paradas()
+            break
+        elif opcion == "3":
+            modificar_paradas()
+            break
+        elif opcion == "4":
+            mostrar("paradas.txt")
+            break
+        elif opcion == "5":
+            print("Hasta luego ;D")
+            break
+
+        else:
+            print("Error: opcion invalida")
+
+def programacion_salidas():
+    print("===programacion de salidas==")
+    while True:
+        print("(1). Incluir registro de salidas")
+        print("(2). Eliminar registro de salidas")
+        print("(3). Modificar registro de salidas")
+        print("(4). Mostrar el registro de salidas")
+        print("(5). salir")
+
+        opcion = input("Seleccione una opcion: ")
+
+        if opcion == "1":
+            incluir_salidas()
+            break
+        elif opcion == "2":
+            print("Error: funcion sin terminar")
+            break
+        elif opcion == "3":
+            print("Error: funcion sin terminar")
+            break
+        elif opcion == "4":
+            mostrar("salidas.txt")
+            break
+        elif opcion == "5":
+            print("Hasta luego ;D")
+            break
+
+        else:
+            print("Error: opcion invalida")
+
+menu()
