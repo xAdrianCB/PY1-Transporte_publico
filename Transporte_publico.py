@@ -994,10 +994,28 @@ def validar_licencia(elem,lista,fecha):
                 return False
         i+= 1
     return False
-#E: elem,lista,lista2,salida
-#S:
-#R:
-def horas_totales(elem,lista,lista2,salida):
+#E: elem,lista,lista2,salida,fecha,entrada
+#S: retorna True si supera la jornada maxima o False si no
+#R: n/a
+def horas_totales(elem,lista,lista2,salida,fecha,entrada):
+    duracioNueva = minutos(entrada) - minutos(salida)
+    i = 0
+    while i< len(lista2):
+        if lista2[i][0] == elem:
+            Mjornada = int(lista2[i][4]) * 60
+            break
+        i+= 1
+    jornada= 0
+    i = 0
+    while i < len(lista):
+        if lista[i][3] == elem and lista[i][4] == fecha:
+            duracion = minutos(lista[i][6]) -minutos(lista[i][5])
+            jornada += duracion
+        i+= 1
+    total += duracioNueva
+    if jornada > Mjornada:
+        return True
+    
     return False
 
 #E:n/a
