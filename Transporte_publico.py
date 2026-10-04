@@ -937,7 +937,7 @@ def obtener_elemento(indice,nombre_archivo):
         if i == indice-1 :
             return lista[i][0]
         i += 1
-    return "No se encontro elementos en el archivo"
+
 #E: hora
 #s: retorna las horas en minutos
 #R: n/a
@@ -945,6 +945,7 @@ def minutos(hora):
     lista = hora.split(":")
     tiempo = int(lista[0]) * 60 + int(lista[1])
     return tiempo
+
 #E: elem,lista , indice, salida, entrada
 #S: retorna valor booleano segun si encuentra un traslape
 #R: n/a
@@ -962,13 +963,37 @@ def existe_traslape(elem,lista , indice,fecha, salida, entrada):
         i+= 1
     return False
         
+#E: fecha
+#S: retorna el arreglo de los numero enteros(fechas)
+#R: n/a
+def conversionFecha(fecha):
+    lista = fecha.split("/")
+    dia = int(lista[0])
+    mes = int(lista[1])
+    anio= int(lista[2])
+    return dia + anio*10000 + mes*100
 
 #E: elem,lista,fecha
-#S:
-#R:
+#S: retorna valor False si la fecha es menor al vencimiento y True sino
+#R: valida que elem sea string, fecha tipo string y la lista sea tipo lista
 def validar_licencia(elem,lista,fecha):
+    if not isinstance(elem,str):
+        return "Error: "
+    if not isinstance(lista,list):
+        return "Error: "
+    if not isinstance(fecha,str):
+        return "Error: "
+    fecha = conversionFecha(fecha)
+    i= 0
+    while i < len(lista):
+        if lista[i][0] == elem:
+            vencida = conversion(lista[i][3])
+            if vencida < fecha:
+                return True
+            else:
+                return False
+        i+= 1
     return False
-
 #E: elem,lista,lista2,salida
 #S:
 #R:
